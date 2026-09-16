@@ -1,0 +1,37 @@
+------------- Header files ------------- 
+
+Member 1
+Administrator
+All Courses
+All Exceptations
+Person
+Enrollment
+
+
+Member 2
+All Attendance
+CardTap
+ConsoleCardReader
+TimeSlot
+TimeTable
+
+
+Member 3
+All Repository
+Menu UI
+
+Member 4
+All file storages
+FileReplay
+
+------------ Source files also same as the header files -------------
+Edit each and every files related to relevant members
+
+Don't forget push and commit for every changes
+Also mention your edits in commits
+
+
+To Run the entire program
+g++ -I include main.cpp src/*.cpp -o LMS_Program.exe
+./LMS_Program.exe
+To run the program in CMD or Powershell
