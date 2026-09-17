@@ -27,6 +27,7 @@ using namespace repo;
 namespace {
 
 void seedDemoData(SystemManager& sys) {
+    if (!sys.getUserRepository().getItems().empty() || !sys.getCourseRepository().getItems().empty()) return;
     auto drSmith = std::make_shared<domain::Lecturer>("P100", "Dr. Smith", "smith@uni.lk", "pass123",
                                                         "Computing", "S001");
     auto alice = std::make_shared<domain::Student>("P200", "Alice", "alice@uni.lk", "pass456", "ST001");
@@ -47,6 +48,7 @@ void seedDemoData(SystemManager& sys) {
     } catch (const domain::LMSException& ex) {
         std::cout << "[seed] Unexpected enrolment failure: " << ex.what() << "\n";
     }
+    sys.saveAll();
 }
 
 void printWelcome() {
@@ -95,7 +97,7 @@ int main() {
     }
 
     // Keep repository data flushed on a normal exit too.
-    sys.getAttendanceRepository().saveAll();
+    sys.saveAll();
     std::cout << "Goodbye.\n";
     return 0;
 }

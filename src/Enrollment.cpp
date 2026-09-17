@@ -56,9 +56,7 @@ void Enrollment::checkPrerequisites() const {
 void Enrollment::checkTimetableClash() const {
     attendance::Timetable* timetable = student_->getTimetable();
     if (timetable == nullptr) {
-        // Student has no Timetable attached yet - nothing to check against.
-        // (SystemManager/whoever constructs the Student is responsible for
-        // calling setTimetable() - see README for this known gap.)
+        // Defensive guard: current Student owns a Timetable, so this should not occur.
         return;
     }
 

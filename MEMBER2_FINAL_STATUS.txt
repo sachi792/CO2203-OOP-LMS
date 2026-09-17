@@ -1,0 +1,35 @@
+Member 2 final verification status
+==================================
+Core implemented:
+- TimeSlot and Timetable
+- operator-based slot equality / overlap-based clash detection
+- registration prerequisite checking
+- AttendanceSession open/close/expiry
+- AttendanceRecord / AttendanceRegister
+- duplicate, closed-session and not-enrolled attendance validation
+- CardTapCapture + ConsoleCardReader
+- FileReplayCapture integration
+- append-only attendance correction/audit history
+- attendance persistence bridge
+- attendance percentage and reporting
+
+UI integration verified:
+- Student timetable
+- Student attendance + effective correction status + percentage
+- Lecturer open/mark/close attendance
+- Lecturer persisted attendance report
+- Lecturer append correction
+- Capture method selection
+
+Runtime tests performed on this build:
+- project compiles with C++17
+- manual mark -> persisted report
+- correction Present -> Absent appended without deleting original
+- correction reason persisted
+- close session -> subsequent mark rejected as no open session
+- restart -> student sees corrected effective status and 0% for the tested one-session case
+
+Still requires full-project integration stage:
+- second-course runtime tests for prerequisite and timetable clash
+- Administrator menu/domain completion
+- complete Member 1/Member 3 audit and end-to-end persistence/menu testing

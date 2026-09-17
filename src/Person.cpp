@@ -1,4 +1,5 @@
 #include "Person.h"
+#include <ostream>
 
 namespace domain {
 
@@ -20,4 +21,15 @@ const std::string& Person::getPersonId() const noexcept { return personId_; }
 const std::string& Person::getName() const noexcept { return name_; }
 const std::string& Person::getEmail() const noexcept { return email_; }
 
+std::ostream& operator<<(std::ostream& os, const Person& person) {
+    return os << person.getPersonId() << " | " << person.getName() << " | " << person.getEmail();
+}
+
 } // namespace domain
+
+namespace domain {
+const std::string& Person::getPassword() const noexcept { return password_; }
+void Person::setName(const std::string& name) { name_ = name; }
+void Person::setEmail(const std::string& email) { email_ = email; }
+void Person::setPassword(const std::string& password) { password_ = password; }
+}

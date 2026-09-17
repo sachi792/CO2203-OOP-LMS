@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <iosfwd>
 #include "Stubs.h"
 #include "TimeSlot.h"
 
@@ -31,6 +32,10 @@ public:
     const std::string& getCode() const noexcept;
     const std::string& getTitle() const noexcept;
     int getCredits() const noexcept;
+    int getCapacity() const noexcept;
+    void setTitle(const std::string& title);
+    void setCredits(int credits) noexcept;
+    void setCapacity(int capacity) noexcept;
 
     void addStudent(Student& student);          // throws CourseFullException
     void removeStudent(const Student& student);
@@ -40,6 +45,7 @@ public:
     Lecturer* getLecturer() const noexcept;
 
     void addPrerequisite(Course* prerequisite);
+    void removePrerequisite(const Course* prerequisite);
     const std::vector<Course*>& getPrerequisites() const noexcept;
 
     const std::vector<Student*>& getEnrolledStudents() const noexcept;
@@ -50,6 +56,8 @@ public:
     // there is nothing to check a clash against. See README.
     void setSchedule(const TimeSlot& slot) noexcept;
     const TimeSlot& getSchedule() const noexcept;
+
+    friend std::ostream& operator<<(std::ostream& os, const Course& course);
 
 protected:
     std::string courseCode_;

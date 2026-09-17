@@ -16,6 +16,7 @@ public:
     void openAttendance();          // delegates to Member 2's attendance subsystem
     void markAttendance();          // delegates to Member 2's attendance subsystem
     void viewCourses() const;
+    void viewEnrollmentList() const;
     void selectCaptureMethod();     // delegates to Member 2's AttendanceCapture hierarchy
 
     // Integration helpers for the console UI. The core session/report/correction
@@ -28,6 +29,7 @@ public:
     const std::string& getStaffId() const noexcept;
 
     void assignCourse(Course* course);
+    void removeCourse(const Course* course);
     const std::vector<Course*>& getCourses() const noexcept;
 
 private:

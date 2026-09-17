@@ -10,6 +10,7 @@
 #include "LMSException.h"
 #include "SystemManager.h"
 #include <iostream>
+#include <algorithm>
 #include <memory>
 
 namespace domain {
@@ -92,10 +93,21 @@ void Lecturer::markAttendance() {
     // For this console simulation each student's card UID is their unique
     // student ID. StudentCard still performs the UID -> Student mapping.
     if (captureMethod) {
-        captureMethod->beginSession();
+        try {
+            captureMethod->beginSession();
+        } catch (const std::exception& ex) {
+            std::cout << "Capture error: " << ex.what() << "\n";
+            return;
+        }
 
         while (activeSession->isOpen()) {
-            auto capturedUID = captureMethod->captureNext();
+            std::optional<std::string> capturedUID;
+            try {
+                capturedUID = captureMethod->captureNext();
+            } catch (const std::exception& ex) {
+                std::cout << "Capture error: " << ex.what() << "\n";
+                continue;
+            }
             if (!capturedUID) break;
 
             Student* selected = nullptr;
@@ -162,6 +174,28 @@ void Lecturer::viewCourses() const {
     for (auto* course : courses_) {
         if (course) std::cout << "  " << course->getCode() << " - " << course->getTitle() << "\n";
     }
+}
+
+void Lecturer::viewEnrollmentList() const {
+    if (courses_.empty()) {
+        std::cout << "No courses assigned to this lecturer.\n";
+        return;
+    }
+    std::cout << "Enter course code: ";
+    std::string code;
+    if (!std::getline(std::cin, code)) return;
+    Course* selected = nullptr;
+    for (auto* course : courses_) if (course && course->getCode() == code) { selected = course; break; }
+    if (!selected) {
+        std::cout << "You are not assigned to that course.\n";
+        return;
+    }
+    std::cout << "\n--- Enrollment List: " << selected->getCode() << " ---\n";
+    const auto& students = selected->getEnrolledStudents();
+    if (students.empty()) { std::cout << "No enrolled students.\n"; return; }
+    for (auto* student : students) if (student)
+        std::cout << "  " << student->getStudentId() << " | " << student->getName() << "\n";
+    std::cout << "Total enrolled: " << students.size() << "\n";
 }
 
 void Lecturer::selectCaptureMethod() {
@@ -269,6 +303,10 @@ void Lecturer::assignCourse(Course* course) {
         courses_.push_back(course);
         course->setLecturer(this);
     }
+}
+
+void Lecturer::removeCourse(const Course* course) {
+    courses_.erase(std::remove(courses_.begin(), courses_.end(), course), courses_.end());
 }
 
 const std::vector<Course*>& Lecturer::getCourses() const noexcept { return courses_; }
