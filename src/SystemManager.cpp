@@ -2,6 +2,13 @@
 
 namespace repo {
 
+SystemManager::SystemManager() {
+    // Attendance is persisted by Member 3's repository/storage layer.
+    // Reload it when the application starts so Student::viewAttendance()
+    // can see records created during earlier program runs.
+    attendanceRepo_.loadAll();
+}
+
 SystemManager& SystemManager::getInstance() {
     static SystemManager instance; // constructed on first use, destroyed at program exit
     return instance;

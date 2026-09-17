@@ -28,7 +28,7 @@ public:
     AttendanceRepository& getAttendanceRepository() noexcept;
 
 private:
-    SystemManager() = default;
+    SystemManager();
 
     UserRepository userRepo_;
     CourseRepository courseRepo_;

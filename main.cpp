@@ -41,15 +41,6 @@ void seedDemoData(SystemManager& sys) {
     sys.getCourseRepository().add(oop);
     drSmith->assignCourse(oop.get());
 
-    // Give Alice a Timetable so Enrollment's clash check has something to
-    // compare against (see Course.h / Enrollment.cpp for why this exists).
-    // Student only holds a non-owning pointer (see Student.h), so this needs
-    // to outlive the Student - a static local does that simply for a
-    // single-run demo program; a real system would have SystemManager or a
-    // repository own Timetable instances properly.
-    static attendance::Timetable aliceTimetable;
-    alice->setTimetable(&aliceTimetable);
-
     try {
         alice->registerCourse(*oop);
         std::cout << "[seed] Alice registered for CO2203\n";
@@ -76,26 +67,35 @@ int main() {
     seedDemoData(sys);
     printWelcome();
 
-    std::cout << "Email: ";
-    std::string email;
-    if (!std::getline(std::cin, email)) {
-        std::cout << "\n[No input received - exiting. Run interactively to log in.]\n";
-        return 0;
+    // Keep the application alive across logouts. This also lets a lecturer
+    // mark attendance and then a student log in during the same run.
+    while (true) {
+        std::cout << "\nEmail (or 0 to exit): ";
+        std::string email;
+        if (!std::getline(std::cin, email)) {
+            std::cout << "\n[No input received - exiting.]\n";
+            break;
+        }
+        if (email == "0") break;
+
+        std::cout << "Password: ";
+        std::string password;
+        if (!std::getline(std::cin, password)) break;
+
+        if (!sys.login(email, password)) {
+            std::cout << "Login failed. Try again.\n";
+            continue;
+        }
+
+        std::cout << "Logged in as " << sys.getCurrentUser()->getName() << "\n";
+        MenuUI::Menu(*sys.getCurrentUser());
+
+        sys.logout();
+        std::cout << "Logged out.\n";
     }
 
-    std::cout << "Password: ";
-    std::string password;
-    std::getline(std::cin, password);
-
-    if (!sys.login(email, password)) {
-        std::cout << "Login failed.\n";
-        return 1;
-    }
-
-    std::cout << "Logged in as " << sys.getCurrentUser()->getName() << "\n";
-    MenuUI::Menu(*sys.getCurrentUser());
-
-    sys.logout();
-    std::cout << "Logged out.\n";
+    // Keep repository data flushed on a normal exit too.
+    sys.getAttendanceRepository().saveAll();
+    std::cout << "Goodbye.\n";
     return 0;
 }

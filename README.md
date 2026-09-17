@@ -131,3 +131,12 @@ larger features, not integration bugs:
 - Nobody currently constructs and attaches a `Timetable` to a `Student`
   except `main.cpp`'s demo seeding — in a real flow, `SystemManager` or
   `Administrator::createUser()` should probably own that.
+
+## Step 8 integration note
+- Member 2 attendance records are now bridged into `AttendanceRepository` after a successful lecturer mark.
+- Member 1 `Student::viewAttendance()` now reads those real repository records instead of printing a placeholder.
+- This is intentionally a simple university-project integration; no new UML class was introduced.
+
+## Member 2 integration change log
+
+Before replacing or merging `Student`, `Lecturer`, `Course`, `Enrollment`, `MenuUI`, or shared repository/SystemManager files, read [`INTEGRATION_CHANGES.md`](INTEGRATION_CHANGES.md). It records the exact cross-member integration behavior required by the Member 2 Attendance and Timetable modules, so another member's newer file can be merged without losing these connections.

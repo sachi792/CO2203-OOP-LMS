@@ -18,6 +18,12 @@ public:
     void viewCourses() const;
     void selectCaptureMethod();     // delegates to Member 2's AttendanceCapture hierarchy
 
+    // Integration helpers for the console UI. The core session/report/correction
+    // logic remains in Member 2's attendance classes.
+    void closeAttendance();
+    void viewAttendanceReport() const;
+    void correctAttendance();
+
     const std::string& getDepartment() const noexcept;
     const std::string& getStaffId() const noexcept;
 

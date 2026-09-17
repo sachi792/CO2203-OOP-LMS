@@ -19,6 +19,13 @@ public:
     void markAttendance(domain::Student& student, AttendanceSession& session,
                          const std::string& captureMethod);
 
+    // Append-only correction: the original attendance record is never edited
+    // or deleted. A new record is appended with the corrected status and an
+    // audit description in captureMethod.
+    void correctAttendance(domain::Student& student, AttendanceSession& session,
+                           const std::string& correctedStatus,
+                           const std::string& reason);
+
     // Naive percentage: (Present records for this student+course) /
     // (distinct sessions seen for this course in the register) * 100.
     // See README for the limitation this simplification introduces.

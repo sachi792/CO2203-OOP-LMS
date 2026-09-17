@@ -3,8 +3,7 @@
 #include <memory>
 #include <string>
 #include "Person.h"
-
-namespace attendance { class Timetable; }
+#include "Timetable.h"
 
 namespace domain {
 
@@ -42,13 +41,13 @@ public:
     const std::string& getStudentId() const noexcept;
     const std::vector<std::shared_ptr<Enrollment>>& getEnrollments() const noexcept;
 
-    void setTimetable(Timetable* timetable) noexcept;
-    Timetable* getTimetable() const noexcept;
+    Timetable* getTimetable() noexcept;
+    const Timetable* getTimetable() const noexcept;
 
 private:
     std::string studentId_;
     std::vector<std::shared_ptr<Enrollment>> enrollments_;
-    Timetable* timetable_ = nullptr; // non-owning; Member 2 owns the real Timetable instance
+    Timetable timetable_;
 };
 
 } // namespace domain
