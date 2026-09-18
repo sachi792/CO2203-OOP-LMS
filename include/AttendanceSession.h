@@ -5,7 +5,7 @@ namespace domain { class Course; }
 
 namespace attendance {
 
-// One lecturer-opened attendance window for a single Course.
+// opened attendance window for a course.
 class AttendanceSession {
 public:
     AttendanceSession(int sessionId, domain::Course& course, int expiryMinutes);
@@ -20,10 +20,10 @@ public:
 
 private:
     int sessionId_;
-    domain::Course* course_; // non-owning
+    domain::Course* course_; 
     bool isOpen_ = false;
     int expiryMinutes_;
     std::chrono::steady_clock::time_point openedAt_;
 };
 
-} // namespace attendance
+} 

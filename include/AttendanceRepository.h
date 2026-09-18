@@ -3,19 +3,17 @@
 #include "AttendanceRecordDTO.h"
 #include <string>
 
-// Forward declaration of Member 2's live record type, for the bridge
-// function only - AttendanceRepository itself never stores this type.
+// Only used by the bridge function below.
 namespace attendance { class AttendanceRecord; }
 
 namespace repo {
 
-// Repository<AttendanceRecordDTO> - see AttendanceRecordDTO.h for why this
-// repository stores DTOs rather than Member 2's live AttendanceRecord.
+// Stores AttendanceRecordDTO objects instead of the live attendance record.
 class AttendanceRepository : public Repository<AttendanceRecordDTO> {
 public:
     explicit AttendanceRepository(const std::string& filePath = "attendance.dat");
 
-    // Bridge from Member 2's live object to a persistable DTO, then adds it.
+    // Converts the live record to a DTO before storing it.
     void addFromDomainRecord(const attendance::AttendanceRecord& record);
 
 private:
@@ -23,4 +21,4 @@ private:
     static AttendanceRecordDTO fromRecord(const std::string& record);
 };
 
-} // namespace repo
+}

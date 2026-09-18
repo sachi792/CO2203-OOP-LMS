@@ -4,8 +4,7 @@
 
 namespace attendance {
 
-// Live capture: uses a ConsoleCardReader ("1 1 uses" in the UML) to read
-// one card UID at a time as the lecturer's session runs.
+// Uses the card reader to get student IDs during a live session.
 class CardTapCapture : public AttendanceCapture {
 public:
     void beginSession() override;
@@ -16,4 +15,4 @@ private:
     ConsoleCardReader reader_;
 };
 
-} // namespace attendance
+} 

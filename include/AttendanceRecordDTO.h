@@ -4,17 +4,9 @@
 
 namespace repo {
 
-// AttendanceRecordDTO deliberately does NOT hold pointers to a live
-// domain::Student or attendance::AttendanceSession the way
-// attendance::AttendanceRecord does - pointers aren't meaningful once
-// written to a file and read back in a different run of the program.
-// Instead it stores IDs, which is what makes it persistable.
-//
-// Flagged as an open design question (see README): reconstructing a live
-// attendance::AttendanceRecord from this DTO after loadAll() would need a
-// lookup against UserRepository (by studentId) and some session registry
-// (by sessionId) - that registry doesn't exist yet anywhere in the project.
-// For now, AttendanceRepository persists and retrieves DTOs only.
+// Store IDs instead of pointers so the data can be saved and loaded later.
+// repository works with DTOs datas
+
 struct AttendanceRecordDTO {
     int sessionId = 0;
     std::string courseCode;
@@ -29,4 +21,4 @@ struct AttendanceRecordDTO {
     }
 };
 
-} // namespace repo
+} 

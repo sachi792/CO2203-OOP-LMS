@@ -3,8 +3,7 @@
 
 namespace domain {
 
-// Thrown when Enrollment::drop() (or Student::dropCourse()) is called
-// for a course the student is not currently, actively enrolled in.
+// Used when a student tries to drop a course they are not enrolled in.
 class NotEnrolledException : public LMSException {
 public:
     NotEnrolledException(std::string studentId, std::string courseCode);
@@ -17,4 +16,4 @@ private:
     std::string courseCode_;
 };
 
-} // namespace domain
+}

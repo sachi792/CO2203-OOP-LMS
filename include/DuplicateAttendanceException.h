@@ -3,8 +3,7 @@
 
 namespace attendance {
 
-// Thrown when AttendanceRegister::markAttendance() finds the student
-// already has a record for this exact session.
+// Used when attendance is already marked for the same session.
 class DuplicateAttendanceException : public AttendanceException {
 public:
     DuplicateAttendanceException(std::string studentId, int sessionId);
@@ -17,4 +16,4 @@ private:
     int sessionId_;
 };
 
-} // namespace attendance
+}

@@ -6,9 +6,8 @@ namespace domain {
 
 class Course;
 
-// Note: createUser/createCourse return owning results (unique_ptr) since the
-// Administrator FACTORY-creates them; ownership then passes to whichever
-// repository (Member 3) persists them.
+ // createUser/createCourse return unique_ptr because the Administrator
+ // creates them first, then the repository takes ownership and stores them.
 class Administrator : public Person {
 public:
     Administrator(std::string personId, std::string name, std::string email, std::string password);

@@ -5,13 +5,12 @@
 
 namespace attendance {
 
-// Replays a pre-recorded log of card UIDs from a file - useful for demos,
-// automated testing, and simulating a session without live hardware.
+// Reads card UIDs from a file instead of using a real card reader.
 class FileReplayCapture : public AttendanceCapture {
 public:
     explicit FileReplayCapture(std::string logFile);
 
-    void beginSession() override; // loads the file into memory
+    void beginSession() override; 
     std::optional<std::string> captureNext() override;
     void endSession() override;
 
@@ -21,4 +20,4 @@ private:
     std::vector<std::string> lines_;
 };
 
-} // namespace attendance
+} 

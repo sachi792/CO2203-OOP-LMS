@@ -16,4 +16,4 @@ private:
     int labCapacity_;
 };
 
-} // namespace domain
+} 

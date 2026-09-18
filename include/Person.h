@@ -5,29 +5,26 @@
 
 namespace domain {
 
-// Abstract base of the Person hierarchy (Student / Lecturer / Administrator).
-// Abstract because getDashboard() is pure virtual: every concrete role
-// presents a different dashboard, so Person alone cannot be instantiated.
+// Base class for Student, Lecturer and Administrator.
+// Each role has its own dashboard.
 class Person {
 public:
     Person(std::string personId, std::string name, std::string email, std::string password);
     virtual ~Person() = default;
 
-    // Only value members owned here -> compiler-generated copy/move are
-    // correct and sufficient (Rule of Zero applies at this level).
+    // Default copy and move are enough since this class only has value members.
     Person(const Person&) = default;
     Person& operator=(const Person&) = default;
     Person(Person&&) noexcept = default;
     Person& operator=(Person&&) noexcept = default;
 
-    // Common credential check shared by every role.
+    // Checks the email and password.
     bool login(const std::string& emailAttempt, const std::string& passwordAttempt) const;
 
-    // Pure virtual: forces every concrete Person to supply its own dashboard.
+    // Each role provides its own dashboard.
     virtual Dashboard getDashboard() const = 0;
 
-    // Not overridden per-role in the UML, so a single shared implementation
-    // lives here. Still virtual in case a future role needs to customise it.
+    // Common menu for all roles.
     virtual Menu getMenu() const;
 
     friend std::ostream& operator<<(std::ostream& os, const Person& person);
@@ -47,4 +44,4 @@ protected:
     std::string password_;
 };
 
-} // namespace domain
+}

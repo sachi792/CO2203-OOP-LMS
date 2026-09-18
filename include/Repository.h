@@ -7,16 +7,8 @@
 
 namespace repo {
 
-// Generic Repository<T>, matching the UML's fields (items, storage) and
-// methods (add, remove, saveAll, loadAll).
-//
-// T is expected to be a pointer-like handle to a domain object (this
-// project uses std::shared_ptr<Base> everywhere - see UserRepository /
-// CourseRepository / AttendanceRepository). Repository itself has NO
-// domain knowledge: converting a T to/from a persisted string record is
-// supplied by the caller as two small functions, which is what lets a
-// single Repository<T> template serve three very different domain types
-// without needing three different persistence implementations.
+// Generic repository used to store and load different types of objects.
+// The conversion functions handle the type-specific file format.
 template <typename T>
 class Repository {
 public:
@@ -61,4 +53,4 @@ protected:
     FromRecordFn fromRecord_;
 };
 
-} // namespace repo
+}

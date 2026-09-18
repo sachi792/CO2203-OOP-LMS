@@ -13,14 +13,13 @@ public:
 
     Dashboard getDashboard() const override;
 
-    void openAttendance();          // delegates to Member 2's attendance subsystem
-    void markAttendance();          // delegates to Member 2's attendance subsystem
+    void openAttendance();          // handles attendance through the attendance module
+    void markAttendance();          // handles attendance through the attendance module
     void viewCourses() const;
     void viewEnrollmentList() const;
-    void selectCaptureMethod();     // delegates to Member 2's AttendanceCapture hierarchy
+    void selectCaptureMethod();     // selects the attendance capture method
 
-    // Integration helpers for the console UI. The core session/report/correction
-    // logic remains in Member 2's attendance classes.
+    // Used by the console UI to control attendance and view its results.
     void closeAttendance();
     void viewAttendanceReport() const;
     void correctAttendance();
@@ -35,7 +34,7 @@ public:
 private:
     std::string department_;
     std::string staffId_;
-    std::vector<Course*> courses_; // non-owning
+    std::vector<Course*> courses_;
 };
 
-} // namespace domain
+} 
