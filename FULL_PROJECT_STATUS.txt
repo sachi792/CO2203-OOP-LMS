@@ -1,0 +1,39 @@
+CO2203 LMS - Full Integration Status
+
+Completed integration work:
+- Administrator menu now loops and performs real operations.
+- Create/edit/remove users connected to UserRepository.
+- Create/edit/remove courses connected to CourseRepository.
+- Admin can assign lecturers and prerequisites and define/edit schedules.
+- User credentials are persisted so admin-created users can log in after restart.
+- Course schedule/capacity are persisted.
+- Lecturer-course, prerequisite, and student-enrolment relationships are persisted in relations.dat.
+- Student registration/drop saves relationship state immediately.
+- Existing Member 2 attendance correction/report/session/card-tap functionality retained.
+- Timetable clash and prerequisite failures tested with multiple courses.
+- Admin-created user login after restart tested.
+- Admin course create/edit/remove and user edit tested.
+
+Verified automated/scripted scenarios:
+1. Fresh start seeds default Alice/Dr. Smith/Admin only when repositories are empty.
+2. Admin creates Bob (ST002).
+3. Admin creates CO1101, CO2204, CO3300 with schedules, lecturer assignment and prerequisite.
+4. Alice registration in overlapping CO2204 is rejected with TimetableClashException.
+5. Alice registration in CO3300 without CO1101 is rejected with PrerequisiteException.
+6. Bob credentials survive restart and login succeeds.
+7. Created courses and schedules survive restart.
+8. Alice's CO2203 enrolment/timetable survives restart.
+9. Admin edit user, edit course, and remove course work in scripted run.
+
+Manual Member 2 tests already completed in Windows:
+- student/lecturer login menus
+- timetable view/add/remove
+- register/drop/duplicate registration
+- attendance session open/close
+- manual attendance + duplicate rejection
+- Card Tap valid/invalid UID
+- attendance correction + audit reason
+- attendance percentage
+- persistence after restart
+
+Recommended final manual demo: test Admin create/edit/remove once on Windows, then run one complete Student -> Lecturer -> Student flow.

@@ -6,6 +6,8 @@
 #include "NotEnrolledException.h"
 #include <iostream>
 #include <set>
+#include <map>
+#include <stdexcept>
 
 namespace attendance {
 
@@ -28,20 +30,46 @@ void AttendanceRegister::markAttendance(domain::Student& student, AttendanceSess
     records_.emplace_back(&student, &session, "Present", captureMethod);
 }
 
+void AttendanceRegister::correctAttendance(domain::Student& student, AttendanceSession& session,
+                                            const std::string& correctedStatus,
+                                            const std::string& reason) {
+    if (!hasExistingRecord(student, session)) {
+        throw std::runtime_error("Cannot correct attendance: original record not found");
+    }
+
+    // Append a correction instead of modifying the original record. This keeps
+    // the full audit trail while staying inside the existing AttendanceRecord
+    // design from the UML.
+    const std::string auditMethod = reason.empty()
+        ? "Correction"
+        : "Correction: " + reason;
+    records_.emplace_back(&student, &session, correctedStatus, auditMethod);
+}
+
 double AttendanceRegister::attendancePercentage(const domain::Student& student,
                                                  const domain::Course& course) const {
-    int presentCount = 0;
     std::set<int> distinctSessionIds;
+    // Append-only corrections mean the latest record for a student/session is
+    // the effective status, while earlier records remain available for audit.
+    std::map<int, std::string> latestStatusBySession;
 
     for (const auto& record : records_) {
         if (record.getSession()->getCourse().getCode() != course.getCode()) continue;
-        distinctSessionIds.insert(record.getSession()->getSessionId());
-        if (record.getStudent() == &student && record.getStatus() == "Present") {
-            ++presentCount;
+
+        const int sessionId = record.getSession()->getSessionId();
+        distinctSessionIds.insert(sessionId);
+        if (record.getStudent() == &student) {
+            latestStatusBySession[sessionId] = record.getStatus();
         }
     }
 
     if (distinctSessionIds.empty()) return 0.0;
+
+    int presentCount = 0;
+    for (const auto& entry : latestStatusBySession) {
+        if (entry.second == "Present") ++presentCount;
+    }
+
     return (static_cast<double>(presentCount) / static_cast<double>(distinctSessionIds.size())) * 100.0;
 }
 
@@ -59,7 +87,8 @@ const std::vector<AttendanceRecord>& AttendanceRegister::getRecords() const noex
 bool AttendanceRegister::hasExistingRecord(const domain::Student& student,
                                            const AttendanceSession& session) const {
     for (const auto& record : records_) {
-        if (record.getStudent() == &student && record.getSession() == &session) {
+        if (record.getStudent() == &student &&
+            record.getSession()->getSessionId() == session.getSessionId()) {
             return true;
         }
     }

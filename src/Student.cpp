@@ -4,6 +4,8 @@
 #include "NotEnrolledException.h"
 #include <algorithm>
 #include <iostream>
+#include <map>
+#include "SystemManager.h"
 
 namespace domain {
 
@@ -37,13 +39,46 @@ void Student::dropCourse(const std::string& courseCode) {
 }
 
 void Student::viewTimetable() const {
-    // Delegates to Member 2's Timetable once its interface is available.
-    std::cout << "[Student " << studentId_ << "] viewTimetable() - delegates to Member 2's Timetable\n";
+    timetable_.display();
 }
 
 void Student::viewAttendance() const {
-    // Delegates to Member 2's AttendanceRegister once its interface is available.
-    std::cout << "[Student " << studentId_ << "] viewAttendance() - delegates to Member 2's AttendanceRegister\n";
+    const auto& records = repo::SystemManager::getInstance()
+                              .getAttendanceRepository().getItems();
+
+    // Latest record for the same course/session is the effective value. Older
+    // entries remain stored so corrections keep their audit history.
+    std::map<std::string, repo::AttendanceRecordDTO> latest;
+    for (const auto& record : records) {
+        if (record.studentId != studentId_) continue;
+        const std::string key = record.courseCode + "#" + std::to_string(record.sessionId);
+        latest[key] = record;
+    }
+
+    std::cout << "\n--- Attendance for " << studentId_ << " ---\n";
+    if (latest.empty()) {
+        std::cout << "No attendance records found.\n";
+        return;
+    }
+
+    std::map<std::string, int> totalSessions;
+    std::map<std::string, int> presentSessions;
+    for (const auto& entry : latest) {
+        const auto& record = entry.second;
+        std::cout << record.courseCode
+                  << " | Session " << record.sessionId
+                  << " | " << record.status
+                  << " | " << record.captureMethod << "\n";
+        ++totalSessions[record.courseCode];
+        if (record.status == "Present") ++presentSessions[record.courseCode];
+    }
+
+    std::cout << "Total attendance sessions: " << latest.size() << "\n";
+    for (const auto& item : totalSessions) {
+        const double percentage = item.second == 0 ? 0.0
+            : (100.0 * presentSessions[item.first] / item.second);
+        std::cout << item.first << " attendance: " << percentage << "%\n";
+    }
 }
 
 bool Student::isEnrolledIn(const std::string& courseCode) const {
@@ -59,7 +94,7 @@ const std::vector<std::shared_ptr<Enrollment>>& Student::getEnrollments() const 
     return enrollments_;
 }
 
-void Student::setTimetable(Timetable* timetable) noexcept { timetable_ = timetable; }
-Timetable* Student::getTimetable() const noexcept { return timetable_; }
+Timetable* Student::getTimetable() noexcept { return &timetable_; }
+const Timetable* Student::getTimetable() const noexcept { return &timetable_; }
 
 } // namespace domain

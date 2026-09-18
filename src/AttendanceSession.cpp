@@ -15,13 +15,18 @@ void AttendanceSession::close() {
 }
 
 bool AttendanceSession::hasExpired() const {
-    if (!isOpen_) return true;
-    auto elapsed = std::chrono::steady_clock::now() - openedAt_;
-    return elapsed > std::chrono::minutes(expiryMinutes_);
+    // A session that was never opened or was manually closed is not
+    // considered "expired". Expiry only applies to an active window.
+    if (!isOpen_) return false;
+
+    const auto elapsed = std::chrono::steady_clock::now() - openedAt_;
+    return elapsed >= std::chrono::minutes(expiryMinutes_);
 }
 
 bool AttendanceSession::isOpen() const noexcept {
-    return isOpen_;
+    // Once the configured time window expires, the session is no longer
+    // logically open even if close() was not called manually.
+    return isOpen_ && !hasExpired();
 }
 
 int AttendanceSession::getSessionId() const noexcept { return sessionId_; }

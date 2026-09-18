@@ -26,9 +26,11 @@ public:
     UserRepository& getUserRepository() noexcept;
     CourseRepository& getCourseRepository() noexcept;
     AttendanceRepository& getAttendanceRepository() noexcept;
+    void saveAll();
+    void loadRelations();
 
 private:
-    SystemManager() = default;
+    SystemManager();
 
     UserRepository userRepo_;
     CourseRepository courseRepo_;

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iosfwd>
 #include "Stubs.h"
 
 namespace domain {
@@ -29,9 +30,15 @@ public:
     // lives here. Still virtual in case a future role needs to customise it.
     virtual Menu getMenu() const;
 
+    friend std::ostream& operator<<(std::ostream& os, const Person& person);
+
     const std::string& getPersonId() const noexcept;
     const std::string& getName() const noexcept;
     const std::string& getEmail() const noexcept;
+    const std::string& getPassword() const noexcept;
+    void setName(const std::string& name);
+    void setEmail(const std::string& email);
+    void setPassword(const std::string& password);
 
 protected:
     std::string personId_;

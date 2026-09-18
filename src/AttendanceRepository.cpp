@@ -35,6 +35,8 @@ void AttendanceRepository::addFromDomainRecord(const attendance::AttendanceRecor
     dto.timestamp = record.getTimestamp();
     dto.captureMethod = record.getCaptureMethod();
     add(dto);
+    // Persist immediately so a normal logout/program restart does not lose attendance.
+    saveAll();
 }
 
 // Record format: sessionId|courseCode|studentId|status|timestamp|captureMethod
