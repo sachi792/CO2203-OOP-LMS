@@ -7,8 +7,7 @@ LabBasedCourse::LabBasedCourse(std::string courseCode, std::string title, int cr
     : Course(std::move(courseCode), std::move(title), creditValue, capacity),
       labCapacity_(labCapacity) {}
 
-// Lab courses weight practical competency more heavily -> slightly more
-// forgiving pass mark than a pure lecture course.
+// Calculates the grade using the lab course marking scheme.
 Grade LabBasedCourse::calculateGrade(double marks) const {
     if (marks >= 65) return Grade::A;
     if (marks >= 55) return Grade::B;
@@ -19,4 +18,4 @@ Grade LabBasedCourse::calculateGrade(double marks) const {
 
 int LabBasedCourse::getLabCapacity() const noexcept { return labCapacity_; }
 
-} // namespace domain
+}

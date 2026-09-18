@@ -10,11 +10,7 @@
 namespace repo {
 
 namespace {
-
-// Minimal '|'-delimited split. Limitation: names/emails containing '|'
-// would break this - fine for a course project, worth hardening (e.g.
-// escaping, or switching to a real format like CSV/JSON) before any
-// real-world use.
+                        
 std::vector<std::string> splitFields(const std::string& record) {
     std::vector<std::string> fields;
     std::stringstream ss(record);
@@ -25,7 +21,7 @@ std::vector<std::string> splitFields(const std::string& record) {
     return fields;
 }
 
-} // namespace
+} 
 
 UserRepository::UserRepository(const std::string& filePath)
     : Repository(std::make_shared<FileStorage>(filePath), &UserRepository::toRecord, &UserRepository::fromRecord) {}
@@ -79,4 +75,4 @@ std::shared_ptr<domain::Person> UserRepository::fromRecord(const std::string& re
     return nullptr;
 }
 
-} // namespace repo
+} 

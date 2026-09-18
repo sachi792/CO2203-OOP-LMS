@@ -8,4 +8,4 @@ StudentCard::StudentCard(std::string uid, domain::Student* owner)
 const std::string& StudentCard::getUID() const noexcept { return uid_; }
 domain::Student* StudentCard::getOwner() const noexcept { return owner_; }
 
-} // namespace attendance
+} 

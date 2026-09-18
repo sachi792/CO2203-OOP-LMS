@@ -27,4 +27,4 @@ std::optional<std::string> FileReplayCapture::captureNext() {
 void FileReplayCapture::endSession() {
     std::cout << "[FileReplayCapture] Replay finished (" << replayIndex_ << "/" << lines_.size() << " read)\n";
 }
-} // namespace attendance
+}

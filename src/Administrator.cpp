@@ -33,9 +33,9 @@ std::unique_ptr<Person> Administrator::createUser(const std::string& details) {
 void Administrator::editUser(Person& person) { (void)person; }
 void Administrator::removeUser(const Person& person) { (void)person; }
 
-// details: LECTURE|code|title|credits|capacity
-//          PROJECT|code|title|credits|capacity
-//          LAB|code|title|credits|capacity|labCapacity
+// details Course:  LECTURE|code|title|credits|capacity
+//                  PROJECT|code|title|credits|capacity
+//              LAB|code|title|credits|capacity|labCapacity
 std::unique_ptr<Course> Administrator::createCourse(const std::string& details) {
     auto f=split(details); if(f.size()<5) return nullptr;
     int credits=std::stoi(f[3]), capacity=std::stoi(f[4]);
@@ -46,4 +46,4 @@ std::unique_ptr<Course> Administrator::createCourse(const std::string& details) 
 }
 void Administrator::editCourse(Course& course) { (void)course; }
 void Administrator::removeCourse(const Course& course) { (void)course; }
-} // namespace domain
+} 

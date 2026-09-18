@@ -19,4 +19,4 @@ void CardTapCapture::endSession() {
     std::cout << "[CardTapCapture] Reader closed\n";
 }
 
-} // namespace attendance
+}

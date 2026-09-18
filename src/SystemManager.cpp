@@ -58,4 +58,4 @@ void SystemManager::loadRelations() {
         if(st&&c&&!st->isEnrolledIn(code)) { try { st->registerCourse(*c); } catch(const std::exception& ex) { std::cerr << "[relations] " << ex.what() << "\n"; } }
     }
 }
-} // namespace repo
+}

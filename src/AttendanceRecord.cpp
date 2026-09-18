@@ -1,6 +1,6 @@
 #include "AttendanceRecord.h"
 #include "AttendanceSession.h"
-#include "Student.h" // domain::Student - needed here (not just forward-declared) for display()
+#include "Student.h" 
 #include <iostream>
 #include <ctime>
 
@@ -23,4 +23,4 @@ const std::string& AttendanceRecord::getStatus() const noexcept { return status_
 std::time_t AttendanceRecord::getTimestamp() const noexcept { return timestamp_; }
 const std::string& AttendanceRecord::getCaptureMethod() const noexcept { return captureMethod_; }
 
-} // namespace attendance
+}

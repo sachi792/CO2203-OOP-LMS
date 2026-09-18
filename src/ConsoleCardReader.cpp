@@ -11,4 +11,4 @@ std::string ConsoleCardReader::readUID() {
     return line;
 }
 
-} // namespace attendance
+}

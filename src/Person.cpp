@@ -12,8 +12,7 @@ bool Person::login(const std::string& emailAttempt, const std::string& passwordA
 }
 
 Menu Person::getMenu() const {
-    // Placeholder: real menu composition will be driven by Member 3's
-    // MenuUI once it is wired up to role-based permissions.
+    // Placeholder until the role-based menu is connected.
     return Menu{};
 }
 
@@ -25,7 +24,7 @@ std::ostream& operator<<(std::ostream& os, const Person& person) {
     return os << person.getPersonId() << " | " << person.getName() << " | " << person.getEmail();
 }
 
-} // namespace domain
+}
 
 namespace domain {
 const std::string& Person::getPassword() const noexcept { return password_; }

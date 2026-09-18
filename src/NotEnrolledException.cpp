@@ -9,4 +9,4 @@ NotEnrolledException::NotEnrolledException(std::string studentId, std::string co
 const std::string& NotEnrolledException::getStudentId() const noexcept { return studentId_; }
 const std::string& NotEnrolledException::getCourseCode() const noexcept { return courseCode_; }
 
-} // namespace domain
+} 

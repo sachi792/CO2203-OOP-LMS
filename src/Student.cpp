@@ -20,7 +20,7 @@ Dashboard Student::getDashboard() const {
 
 void Student::registerCourse(Course& course) {
     auto enrollment = std::make_shared<Enrollment>(*this, course);
-    enrollment->enroll(); // may throw; if it does, we simply don't record it below
+    enrollment->enroll(); 
     enrollments_.push_back(enrollment);
 }
 
@@ -46,8 +46,6 @@ void Student::viewAttendance() const {
     const auto& records = repo::SystemManager::getInstance()
                               .getAttendanceRepository().getItems();
 
-    // Latest record for the same course/session is the effective value. Older
-    // entries remain stored so corrections keep their audit history.
     std::map<std::string, repo::AttendanceRecordDTO> latest;
     for (const auto& record : records) {
         if (record.studentId != studentId_) continue;
@@ -97,4 +95,4 @@ const std::vector<std::shared_ptr<Enrollment>>& Student::getEnrollments() const 
 Timetable* Student::getTimetable() noexcept { return &timetable_; }
 const Timetable* Student::getTimetable() const noexcept { return &timetable_; }
 
-} // namespace domain
+} 

@@ -4,4 +4,4 @@ namespace attendance {
 
 AttendanceCapture::~AttendanceCapture() = default;
 
-} // namespace attendance
+}

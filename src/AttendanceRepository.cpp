@@ -20,7 +20,7 @@ std::vector<std::string> splitFields(const std::string& record) {
     }
     return fields;
 }
-} // namespace
+} 
 
 AttendanceRepository::AttendanceRepository(const std::string& filePath)
     : Repository(std::make_shared<FileStorage>(filePath), &AttendanceRepository::toRecord,
@@ -35,7 +35,7 @@ void AttendanceRepository::addFromDomainRecord(const attendance::AttendanceRecor
     dto.timestamp = record.getTimestamp();
     dto.captureMethod = record.getCaptureMethod();
     add(dto);
-    // Persist immediately so a normal logout/program restart does not lose attendance.
+
     saveAll();
 }
 
@@ -65,4 +65,4 @@ AttendanceRecordDTO AttendanceRepository::fromRecord(const std::string& record) 
     return dto;
 }
 
-} // namespace repo
+} 

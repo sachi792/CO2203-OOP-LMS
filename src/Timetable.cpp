@@ -37,4 +37,4 @@ std::ostream& operator<<(std::ostream& os, const Timetable& timetable) {
     return os;
 }
 
-} // namespace attendance
+}

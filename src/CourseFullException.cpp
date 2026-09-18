@@ -9,4 +9,4 @@ const std::string& CourseFullException::getCourseCode() const noexcept {
     return courseCode_;
 }
 
-} // namespace domain
+}

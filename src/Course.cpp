@@ -62,4 +62,4 @@ std::ostream& operator<<(std::ostream& os, const Course& course) {
     return os;
 }
 
-} // namespace domain
+}

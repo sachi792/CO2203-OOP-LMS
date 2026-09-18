@@ -8,4 +8,4 @@ SessionClosedException::SessionClosedException(int sessionId)
 
 int SessionClosedException::getSessionId() const noexcept { return sessionId_; }
 
-} // namespace attendance
+}

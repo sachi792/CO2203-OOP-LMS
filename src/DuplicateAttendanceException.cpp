@@ -10,4 +10,4 @@ DuplicateAttendanceException::DuplicateAttendanceException(std::string studentId
 const std::string& DuplicateAttendanceException::getStudentId() const noexcept { return studentId_; }
 int DuplicateAttendanceException::getSessionId() const noexcept { return sessionId_; }
 
-} // namespace attendance
+}

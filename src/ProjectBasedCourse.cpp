@@ -2,8 +2,7 @@
 
 namespace domain {
 
-// Project courses are typically pass/fail-oriented with a higher bar,
-// as there is no exam component to average against.
+// Calculates the grade using the lab course marking scheme.
 Grade ProjectBasedCourse::calculateGrade(double marks) const {
     if (marks >= 75) return Grade::A;
     if (marks >= 65) return Grade::B;
@@ -11,4 +10,4 @@ Grade ProjectBasedCourse::calculateGrade(double marks) const {
     return Grade::F;
 }
 
-} // namespace domain
+}

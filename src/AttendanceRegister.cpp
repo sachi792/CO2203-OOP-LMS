@@ -18,8 +18,7 @@ void AttendanceRegister::markAttendance(domain::Student& student, AttendanceSess
     }
 
     if (!student.isEnrolledIn(session.getCourse().getCode())) {
-        // Reuses Member 1's exception on purpose: "not enrolled" is a
-        // domain-level fact, not an attendance-specific error condition.
+        // Student must be enrolled in the course before attendance is marked..
         throw domain::NotEnrolledException(student.getStudentId(), session.getCourse().getCode());
     }
 
@@ -37,9 +36,7 @@ void AttendanceRegister::correctAttendance(domain::Student& student, AttendanceS
         throw std::runtime_error("Cannot correct attendance: original record not found");
     }
 
-    // Append a correction instead of modifying the original record. This keeps
-    // the full audit trail while staying inside the existing AttendanceRecord
-    // design from the UML.
+    // Add a new record for the correction instead of changing the old one.
     const std::string auditMethod = reason.empty()
         ? "Correction"
         : "Correction: " + reason;
@@ -95,4 +92,4 @@ bool AttendanceRegister::hasExistingRecord(const domain::Student& student,
     return false;
 }
 
-} // namespace attendance
+}

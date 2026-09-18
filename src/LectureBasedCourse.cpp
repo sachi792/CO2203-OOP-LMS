@@ -1,8 +1,8 @@
 #include "LectureBasedCourse.h"
 
 namespace domain {
-
-// Straightforward marks -> letter grade mapping for a standard lecture course.
+    
+// Calculates the grade using the lecture course marking scheme.
 Grade LectureBasedCourse::calculateGrade(double marks) const {
     if (marks >= 70) return Grade::A;
     if (marks >= 60) return Grade::B;
@@ -11,4 +11,4 @@ Grade LectureBasedCourse::calculateGrade(double marks) const {
     return Grade::F;
 }
 
-} // namespace domain
+}

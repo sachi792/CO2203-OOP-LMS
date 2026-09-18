@@ -10,4 +10,4 @@ const std::string& PrerequisiteException::getMissingPrereq() const noexcept {
     return missingPrereq_;
 }
 
-} // namespace domain
+}

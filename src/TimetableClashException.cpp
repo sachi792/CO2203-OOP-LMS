@@ -13,4 +13,4 @@ std::string TimetableClashException::buildMessage(const TimeSlot& a, const TimeS
     return "Timetable clash on " + a.day + " (" + a.room + ") vs " + b.day + " (" + b.room + ")";
 }
 
-} // namespace domain
+}
