@@ -12,9 +12,8 @@ public:
     void removeSlot(const TimeSlot& slot);
     void display() const;
 
-    // Suggested addition (requested by Member 1's Enrollment::checkTimetableClash()
-    // integration stub): returns the first existing slot that overlaps
-    // `candidate`, or std::nullopt if there's no clash.
+    // Returns the first slot that overlaps with the given slot.
+    // Returns std::nullopt if there is no clash.
     std::optional<TimeSlot> clashesWith(const TimeSlot& candidate) const;
 
     const std::vector<TimeSlot>& getSlots() const noexcept;
@@ -25,4 +24,4 @@ private:
     std::vector<TimeSlot> slots_;
 };
 
-} // namespace attendance
+}

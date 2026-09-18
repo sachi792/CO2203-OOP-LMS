@@ -22,11 +22,11 @@ public:
     const std::string& getCaptureMethod() const noexcept;
 
 private:
-    domain::Student* student_;   // non-owning
-    AttendanceSession* session_; // non-owning
+    domain::Student* student_;   
+    AttendanceSession* session_;
     std::string status_;
     std::time_t timestamp_;
     std::string captureMethod_;
 };
 
-} // namespace attendance
+} 

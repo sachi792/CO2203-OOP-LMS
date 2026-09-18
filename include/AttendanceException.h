@@ -4,12 +4,9 @@
 
 namespace attendance {
 
-// Abstract root of Member 2's OWN exception hierarchy - intentionally
-// separate from domain::LMSException (Member 1's enrolment exceptions).
-// This keeps the two subsystems' error handling independent, per the
-// group's agreed exception-hierarchy scoping. Same "pure-virtual
-// destructor" trick as LMSException to make the base non-instantiable
-// while still sharing real behaviour.
+// Base exception class for Member 2 errors.
+// kept separate from LMSException used for enrolment errors,
+
 class AttendanceException : public std::exception {
 public:
     explicit AttendanceException(std::string message);
@@ -26,4 +23,4 @@ protected:
     std::string message_;
 };
 
-} // namespace attendance
+} 

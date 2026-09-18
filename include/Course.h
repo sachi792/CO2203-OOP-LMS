@@ -10,20 +10,20 @@ namespace domain {
 class Lecturer;
 class Student;
 
-// TimeSlot canonically lives in the attendance module (see
-// CO2203_Attendance/README.md, suggestion #5).
+// TimeSlot defined in the attendance module
 using attendance::TimeSlot;
 
-// Abstract base of the Course hierarchy (LectureBasedCourse / LabBasedCourse /
-// ProjectBasedCourse). Abstract because calculateGrade() is pure virtual:
-// each course type grades differently.
+
+// Base class for the different course types.
+// Each course type has specific method of calculating grades.
 class Course {
+
 public:
     Course(std::string courseCode, std::string title, int creditValue, int capacity);
     virtual ~Course() = default;
 
-    Course(const Course&) = delete;            // Course identity shouldn't be copied;
-    Course& operator=(const Course&) = delete;  // Student/Course* pointers rely on stable addresses.
+    Course(const Course&) = delete;                  // Keep course identity unique.
+    Course& operator=(const Course&) = delete;      // Student/Course pointers need stable addresses.
     Course(Course&&) = delete;
     Course& operator=(Course&&) = delete;
 
@@ -37,7 +37,7 @@ public:
     void setCredits(int credits) noexcept;
     void setCapacity(int capacity) noexcept;
 
-    void addStudent(Student& student);          // throws CourseFullException
+    void addStudent(Student& student);        
     void removeStudent(const Student& student);
     bool isFull() const noexcept;
 
@@ -50,10 +50,7 @@ public:
 
     const std::vector<Student*>& getEnrolledStudents() const noexcept;
 
-    // Added during final integration (not in the original UML - flagged):
-    // Enrollment::checkTimetableClash() needs to know WHEN a course meets
-    // to compare it against a student's existing Timetable. Without this,
-    // there is nothing to check a clash against. See README.
+    // Stores the course meeting time so timetable clashes can be checked.
     void setSchedule(const TimeSlot& slot) noexcept;
     const TimeSlot& getSchedule() const noexcept;
 
@@ -64,10 +61,10 @@ protected:
     std::string title_;
     int creditValue_;
     int capacity_;
-    Lecturer* lecturer_ = nullptr;              // non-owning; Lecturer lives in Person hierarchy
-    std::vector<Course*> prerequisites_;         // non-owning references to other Courses
-    std::vector<Student*> enrolledStudents_;     // non-owning references
-    TimeSlot schedule_;                          // default-constructed = "unscheduled"
+    Lecturer* lecturer_ = nullptr;          
+    std::vector<Course*> prerequisites_;        
+    std::vector<Student*> enrolledStudents_;    
+    TimeSlot schedule_;                          
 };
 
-} // namespace domain
+} 

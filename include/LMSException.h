@@ -4,19 +4,11 @@
 
 namespace domain {
 
-// Abstract base of ALL enrolment-related exceptions in Member 1's subsystem.
-// Made abstract via a pure-virtual destructor: it provides real, shared
-// behaviour (storing/returning the message) while still preventing anyone
-// from throwing a bare LMSException.
-//
-// Scope note: Attendance-side exceptions (DuplicateAttendanceException,
-// SessionClosedException) belong to Member 2 and derive from their OWN
-// attendance exception hierarchy, not from this one - keeping the two
-// subsystems' error handling independent, as agreed.
+// Base class for the exceptions used in the enrollment part.
 class LMSException : public std::exception {
 public:
     explicit LMSException(std::string message);
-    ~LMSException() override = 0; // pure virtual destructor -> class is abstract
+    ~LMSException() override = 0;       // makes the class abstract
 
     LMSException(const LMSException&) = default;
     LMSException& operator=(const LMSException&) = default;
@@ -29,4 +21,4 @@ protected:
     std::string message_;
 };
 
-} // namespace domain
+} 

@@ -1,16 +1,18 @@
 #pragma once
+
 #include "Person.h"
 
 namespace domain {
+
 class Student;
 class Lecturer;
 class Administrator;
+
 }
 
 namespace repo {
 
-// Console-based menu, dispatching to the person's own operations based on
-// their concrete role. Matches the UML's "MenuUI + Menu(Person): void".
+// Console menu for the different user roles.
 class MenuUI {
 public:
     static void Menu(domain::Person& person);
@@ -21,4 +23,4 @@ private:
     static void showAdminMenu(domain::Administrator& admin);
 };
 
-} // namespace repo
+}

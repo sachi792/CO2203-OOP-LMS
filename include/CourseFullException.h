@@ -3,7 +3,7 @@
 
 namespace domain {
 
-// Thrown when Enrollment::enroll() finds Course::isFull() == true.
+// Used when a student tries to enroll in a full course.
 class CourseFullException : public LMSException {
 public:
     explicit CourseFullException(std::string courseCode);
@@ -14,4 +14,4 @@ private:
     std::string courseCode_;
 };
 
-} // namespace domain
+} 

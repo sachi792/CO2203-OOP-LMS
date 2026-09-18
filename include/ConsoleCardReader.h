@@ -3,13 +3,12 @@
 
 namespace attendance {
 
-// Simulates a physical card-tap reader using the console, for demo/testing
-// purposes until real hardware integration exists.
+// Reads a card UID from the console for testing
 class ConsoleCardReader {
+    
 public:
-    // Reads one line from stdin representing a tapped card's UID.
-    // Returns an empty string if input ends (EOF) or the user types "q".
+    // Returns the entered UID. Empty string means the input has ended or "q" was entered.
     std::string readUID();
 };
 
-} // namespace attendance
+} 

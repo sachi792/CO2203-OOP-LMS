@@ -1,15 +1,12 @@
 #pragma once
 #include <string>
 
-// Forward declaration of Member 1's Student class - we only ever need a
-// pointer to it here, so we avoid a hard #include dependency where possible.
-// (main_demo.cpp / AttendanceRegister.cpp will #include the real Student.h.)
+// need only the Student declaration here since we store a pointer.
 namespace domain { class Student; }
 
 namespace attendance {
 
-// Maps a physical/simulated card UID to the Student who owns it, so
-// CardTapCapture's raw UID reads can be resolved to a real domain::Student.
+// Connects a card UID with a student.
 class StudentCard {
 public:
     StudentCard(std::string uid, domain::Student* owner);
@@ -19,7 +16,7 @@ public:
 
 private:
     std::string uid_;
-    domain::Student* owner_; // non-owning; Student's lifetime is managed elsewhere
+    domain::Student* owner_;    // student is managed somewhere else
 };
 
-} // namespace attendance
+}

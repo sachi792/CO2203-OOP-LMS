@@ -1,15 +1,6 @@
 #pragma once
 #include <string>
 
-// ============================================================================
-// TimeSlot.h
-//
-// Canonical home: this is the ONE definition of TimeSlot for the whole
-// merged project. domain::TimetableClashException and domain::Course both
-// bring this into their own namespace via `using attendance::TimeSlot;`
-// rather than defining a competing copy.
-// ============================================================================
-
 namespace attendance {
 
 struct TimeSlot {
@@ -29,10 +20,10 @@ struct TimeSlot {
         return !(*this == other);
     }
 
-    // Two slots clash if they're on the same day and their hour ranges overlap.
+    // Checks if two classes are on the same day and their times overlap.
     bool overlaps(const TimeSlot& other) const noexcept {
         return day == other.day && startHour < other.endHour && other.startHour < endHour;
     }
 };
 
-} // namespace attendance
+}

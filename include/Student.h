@@ -10,10 +10,7 @@ namespace domain {
 class Course;
 class Enrollment;
 
-// Now that all three modules are merged, this refers to the real
-// attendance::Timetable (previously a same-named but never-defined
-// domain-namespace stub in Stubs.h - see Stubs.h's own comment, which
-// flagged this exact swap as the integration step).
+// Use the Timetable from the attendance module.
 using attendance::Timetable;
 
 class Student : public Person {
@@ -32,10 +29,7 @@ public:
     void viewTimetable() const;
     void viewAttendance() const;
 
-    // --- Interface exposed to Member 2 (suggested addition, see project notes) ---
-    // Lets the attendance-capture code confirm a student is entitled to be
-    // marked present in a given course's session, without needing to know
-    // anything about Enrollment internals.
+    // Used by the attendance module to check if the student is enrolled.
     bool isEnrolledIn(const std::string& courseCode) const;
 
     const std::string& getStudentId() const noexcept;
@@ -50,4 +44,4 @@ private:
     Timetable timetable_;
 };
 
-} // namespace domain
+} 

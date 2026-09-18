@@ -5,16 +5,13 @@ namespace domain {
 class Student;
 class Course;
 
-// Association class linking exactly one Student to exactly one Course.
-// This is where enrolment BUSINESS RULES live (capacity, prerequisites,
-// timetable clash) rather than inside Student or Course themselves -
-// keeping those two classes focused on their own data.
+// Connects a student with a course and handles the enrollment rules.
 class Enrollment {
 public:
     Enrollment(Student& student, Course& course);
 
-    void enroll(); // throws CourseFullException, PrerequisiteException, TimetableClashException
-    void drop();   // throws NotEnrolledException
+    void enroll(); // throws CourseFullException, PrerequisiteException, TimetableClashException, NotEnrolledException
+    void drop();   
 
     Student* getStudent() const noexcept;
     Course* getCourse() const noexcept;
@@ -29,4 +26,4 @@ private:
     void checkTimetableClash() const;  // throws TimetableClashException
 };
 
-} // namespace domain
+}

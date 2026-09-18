@@ -10,4 +10,4 @@ public:
     Grade calculateGrade(double marks) const override;
 };
 
-} // namespace domain
+}

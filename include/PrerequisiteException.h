@@ -3,8 +3,7 @@
 
 namespace domain {
 
-// Thrown when Enrollment::enroll() finds a required prerequisite Course
-// has not been completed/enrolled by the Student.
+// Used when a required prerequisite is missing.
 class PrerequisiteException : public LMSException {
 public:
     explicit PrerequisiteException(std::string missingPrereq);
@@ -15,4 +14,4 @@ private:
     std::string missingPrereq_;
 };
 
-} // namespace domain
+} 

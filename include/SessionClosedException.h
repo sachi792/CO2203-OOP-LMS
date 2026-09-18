@@ -3,8 +3,7 @@
 
 namespace attendance {
 
-// Thrown when AttendanceRegister::markAttendance() is called against a
-// session that is not open (never opened, already closed, or expired).
+// Used when attendance is marked for a session that is not open.
 class SessionClosedException : public AttendanceException {
 public:
     explicit SessionClosedException(int sessionId);
@@ -15,4 +14,4 @@ private:
     int sessionId_;
 };
 
-} // namespace attendance
+} 

@@ -4,16 +4,8 @@
 
 namespace repo {
 
-// Storage abstraction. Deliberately NOT templated on domain types - it only
-// ever deals in opaque string "records" (one per line). This keeps storage
-// technology (files today, maybe a database later) completely decoupled
-// from domain knowledge: IStorage doesn't need to know what a Student or
-// Course is, only how to persist and retrieve lines of text.
-//
-// Suggested UML addition: the original diagram shows FileStorage directly,
-// with no interface above it. Introducing IStorage here means a future
-// DatabaseStorage/CloudStorage could be swapped in without Repository or
-// any domain code changing - classic Dependency Inversion.
+// only deals with strings, so it doesn't need to know about students, courses or other domain classes.
+
 class IStorage {
 public:
     virtual ~IStorage() = default;
@@ -22,4 +14,4 @@ public:
     virtual std::vector<std::string> load() = 0;
 };
 
-} // namespace repo
+}
