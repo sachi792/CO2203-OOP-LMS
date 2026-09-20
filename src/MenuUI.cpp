@@ -12,11 +12,7 @@
 
 namespace repo {
 
-// Reads one command line the same way Member 2's ConsoleCardReader does:
-// a single std::getline() call. In an interactive terminal this waits for
-// real input; in this project's automated/demo runs (stdin closed/empty),
-// getline() hits EOF immediately and returns false, so the menu prints its
-// options and then exits gracefully rather than hanging.
+
 namespace {
 bool readCommand(std::string& out) {
     return static_cast<bool>(std::getline(std::cin, out));
@@ -232,4 +228,4 @@ void MenuUI::showAdminMenu(domain::Administrator& admin) {
     }
 }
 
-} // namespace repo
+} 

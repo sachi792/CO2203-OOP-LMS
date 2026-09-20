@@ -1,13 +1,3 @@
-// CO2203 LMS - single entry point tying all three members' modules together.
-//
-// This seeds a small amount of demo data (so the program is runnable and
-// demonstrable without a separate admin-driven "first run" setup step -
-// see Administrator::createUser()'s open question in the domain README)
-// and then runs a real interactive loop: log in, see your role-specific
-// menu, log out, or exit. Run it in a real terminal for the interactive
-// experience; run it with input piped in (or redirected from /dev/null)
-// for scripted/non-interactive use - see MenuUI's own comment on why that
-// doesn't hang.
 #include <iostream>
 #include <memory>
 
