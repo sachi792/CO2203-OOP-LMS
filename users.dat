@@ -1,3 +1,7 @@
 LECTURER|P100|Dr. Smith|smith@uni.lk|pass123|Computing|S001
 STUDENT|P200|Alice|alice@uni.lk|pass456|ST001
 ADMIN|P900|Root Admin|admin@uni.lk|adminpw
+ADMIN|A001|newAdmin|newAdmin@uni.lk|newAdmin
+STUDENT|S001|Ravindu|ravindu@uni.lk|ravindu|EN001
+STUDENT|S002|Sanka|sanka@uni.lk|sanka|EN002
+LECTURER|L001|Mr. Udaya|udaya@uni.lk|udaya|CO|LEN001
